@@ -1,0 +1,11 @@
+export const DO_NOTHIN = 'DO_NOTHIN';
+export const GET_ALL = 'GET_ALL';
+export const SEND_VOTE_SET = 'SEND_VOTE_SET';
+export const EDIT_VOTE_NAME = 'EDIT_VOTE_NAME';
+export const EDIT_VOTE = 'EDIT_VOTE';
+export const EDIT_VOTE_IFLEARNED = 'EDIT_VOTE_IFLEARNED';
+export const EDIT_VOTE_LANGUAGES = 'EDIT_VOTE_LANGUAGES';
+export const REMOVE_VOTE_SET = 'REMOVE_VOTE_SET';
+export const REMOVE_SINGLE_VOTE = 'REMOVE_SINGLE_VOTE';
+export const ADD_SINGLE_VOTE = 'ADD_SINGLE_VOTE';
+export const CLEAN_ALL = 'CLEAN_ALL';
