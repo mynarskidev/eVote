@@ -1,90 +1,83 @@
-import React, { Component } from 'react';
-import { CSVLink } from "react-csv";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import Modal from 'react-bootstrap/Modal'
+import PollCreated from './PollCreated'
+import { toggleCardFunction } from '../actions/VotesActions'
 
+function MyVerticallyCenteredModal(props) {
+    return (
+        <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Modal heading
+          </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <PollCreated data={props.data} />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="success" onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+        </Modal>
+    );
+}
 
 class VoteBox extends Component {
-    state={
-        csvData:[],
-        style:{
-            'opacity': 0,
-            'width': '0px',
-            'overflow': 'hidden',
-            'whiteSpace' : 'nowrap'
-        }
+    state = {
+        modalShow: false,
     }
 
-    componentDidMount(){
-        setTimeout(() => {
-            this.setState({
-                style : {
-                    'opacity' : 1,
-                    'width' : '340px',
-                    'overflow': 'hidden',
-                    'whiteSpace' : 'nowrap'
-                }
-            })
-        }, 5)
-    }
-
-    editWrapper = () => {
-        this.props.editWrapper(this.props.Voteka);
-    }
-
-    removeWrapper = () => {
-        this.props.removeWrapper(this.props.Voteka.votesSetId, this.props.Voteka.votesSetName);
-    }
-
-    downloadCsv = () => {
-        const { Voteka } = this.props;
-        let dataVote = Voteka.vote;
-        let innerCsvData =[];
-        innerCsvData.push([Voteka.votesSetName]);
-        innerCsvData.push([[Voteka.backLanguage+','+Voteka.frontLanguage]]);
-    
-        for (let i=0; i<dataVote.length; i++){
-            innerCsvData.push([dataVote[i][0]+','+dataVote[i][1]])
-        }
+    setModalShow = (value) => {
         this.setState({
-            csvData: innerCsvData
+            modalShow: value
         })
     }
 
-    playVote = (data) => {
-        this.props.playVote(data);
-    }
-    
-  render() {
-    const { Voteka } = this.props;
+    render() {
+        const { cardTitle, textCard, data, toggleCard } = this.props;
+        const { modalShow } = this.state;
 
-    return (
-      <div className="Vote-box" style={this.state.style}>
-        {Voteka.ifLearned ? <div><img className='VoteBox-topBar-icon' src="img/alreadyLearned.png" alt="Already-Learned"/><div className='font-VoteBox-ifLearned'>You learned this collection</div><hr/></div> : null}
-        <div className='VoteBox-txtWrapper'>
-            <span className='font-VoteWrapper-main'>{Voteka.votesSetName}</span>
-            <div className='VoteBox-info-col'>
-                <span className='font-VoteBox-infoHdr'>Languages: </span>
-                <span className='font-VoteBox-infoInfo'>{Voteka.frontLanguage} - {Voteka.backLanguage}</span>
-            </div>
-        </div>
-        <div className='VoteBox-bottomBar'>
-            <div className='VoteBox-bottomBar-brick bckgColor-red' onClick={this.removeWrapper}>
-                <img className='VoteBox-bottomBar-icon' src='img/garbage.png' alt="Delete"/>
-            </div>
-            <div className='VoteBox-bottomBar-brick bckgColor-blue' onClick={this.editWrapper}>
-                <img className='VoteBox-bottomBar-icon' src='img/edit.png' alt="Edit"/>
-            </div>
-            <div className='VoteBox-bottomBar-brick bckgColor-yellow' onClick={this.downloadCsv}>
-                <CSVLink data={this.state.csvData} filename={"Exported_"+Voteka.votesSetName+".csv"}>
-                    <img className='VoteBox-bottomBar-icon' src='img/csv.png' alt="Get"/>
-                </CSVLink>
-            </div>
-            <div className='VoteBox-bottomBar-brick bckgColor-green' onClick={() => this.playVote(Voteka)}>
-                <img className='VoteBox-bottomBar-icon' src='img/play.png' alt="Play"/>
-            </div>
-        </div>
-      </div>
-    );
-  }
+        return (
+            <Fragment>
+                {/* {toggleCard ? null : */}
+                <Card style={{ width: '18rem' }}>
+                    <Card.Body>
+                        <Card.Title>{cardTitle}</Card.Title>
+                        <Card.Text>
+                            {textCard}
+                        </Card.Text>
+                        {/* <ButtonToolbar> */}
+                        <Button variant="success" onClick={() => this.setModalShow(true)}>Open</Button>
+                        <MyVerticallyCenteredModal
+                            show={modalShow}
+                            onHide={() => this.setModalShow(false)}
+                            data={data}
+                        />
+                        {/* </ButtonToolbar> */}
+                        {/* <Button variant="success" onClick={() => { this.props.toggleCardFunction(true) }}>Open</Button> */}
+                    </Card.Body>
+                </Card>
+                {/* } */}
+            </Fragment>
+        );
+    }
 }
 
-export default VoteBox;
+const mapStateToProps = (state) => {
+    const { toggleCard } = state
+    return {
+        toggleCard: toggleCard
+    }
+}
+
+const mapDispatchToProps = { toggleCardFunction }
+
+export default connect(mapStateToProps, mapDispatchToProps)(VoteBox);

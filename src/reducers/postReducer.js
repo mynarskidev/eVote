@@ -1,11 +1,16 @@
-import { SEND_VOTE_SET, GET_ALL, EDIT_VOTE_NAME, EDIT_VOTE_IFLEARNED, EDIT_VOTE, EDIT_VOTE_LANGUAGES, REMOVE_VOTE_SET, REMOVE_SINGLE_VOTE, ADD_SINGLE_VOTE, CLEAN_ALL } from '../store/types'
+import { TOGGLE_CARD, SEND_VOTE_SET, GET_ALL, EDIT_VOTE_NAME, EDIT_VOTE_IFLEARNED, EDIT_VOTE, EDIT_VOTE_LANGUAGES, REMOVE_VOTE_SET, REMOVE_SINGLE_VOTE, ADD_SINGLE_VOTE, CLEAN_ALL } from '../store/types'
 
 
-export default function postReducer(state={Votes: []}, action){
+export default function postReducer(state={Votes: [], toggleCard: null}, action){
     switch(action.type){
         case GET_ALL:{
             let data = action.Votes;
             state = {Votes: data}
+            return state
+        }
+        case TOGGLE_CARD:{
+            let data = action.toggleCard;
+            state = {toggleCard: data}
             return state
         }
         case CLEAN_ALL:{

@@ -1,4 +1,4 @@
-import { DO_NOTHIN, GET_ALL, SEND_VOTE_SET, EDIT_VOTE_NAME, EDIT_VOTE_IFLEARNED, EDIT_VOTE, EDIT_VOTE_LANGUAGES, REMOVE_VOTE_SET, REMOVE_SINGLE_VOTE, ADD_SINGLE_VOTE, CLEAN_ALL } from '../store/types'
+import { DO_NOTHIN, GET_ALL, SEND_VOTE_SET, EDIT_VOTE_NAME, EDIT_VOTE_IFLEARNED, EDIT_VOTE, EDIT_VOTE_LANGUAGES, REMOVE_VOTE_SET, REMOVE_SINGLE_VOTE, ADD_SINGLE_VOTE, CLEAN_ALL, TOGGLE_CARD } from '../store/types'
 
 import axios from 'axios';
 
@@ -10,6 +10,12 @@ export const doNothin = () => {
     return {
         type: DO_NOTHIN
     }
+}
+
+export function toggleCardFunction(bool) {
+    console.log("wchodze")
+    console.log(bool)
+    return { type: TOGGLE_CARD, toggleCard: bool };
 }
 
 export const getAllVotesSetsSuccess = (data) => {

@@ -9,3 +9,4 @@ export const REMOVE_VOTE_SET = 'REMOVE_VOTE_SET';
 export const REMOVE_SINGLE_VOTE = 'REMOVE_SINGLE_VOTE';
 export const ADD_SINGLE_VOTE = 'ADD_SINGLE_VOTE';
 export const CLEAN_ALL = 'CLEAN_ALL';
+export const TOGGLE_CARD = 'TOGGLE_CARD';

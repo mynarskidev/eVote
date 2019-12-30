@@ -4,30 +4,34 @@ import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import NewVote from './NewVote' //TODO
-import PollCreated from './PollCreated'
 import VotesContainer from './VotesContainer'
-import EditVote from './EditVote'
-import PlayVote from './PlayVote'
-import RemoveVoteWrapper from './RemoveVoteWrapper'
 import { sendVotesSet, getAllVotesSetsSuccess, cleanScreen } from '../actions/VotesActions'
 import history from '../helpers/History';
-import axios from 'axios';
+import { mockData } from '../mockData'
+// import axios from 'axios';
+// import EditVote from './EditVote'
+// import RemoveVoteWrapper from './RemoveVoteWrapper'
 
 
-class HomeScreen extends Component {        
+class HomeScreen extends Component {
     state = {
-        addWindow : false,
+        zeroFlag: true,
+        addWindow: false,
         editWindow: false,
-        playWindow: false,
         removePopUp: false,
-        dataForplayWrapper: [],
         dataForRemovePopUp: [],
         lang: '-',
     }
 
-    componentDidMount(){
-        const other=this;
+    componentDidMount() {
+        const other = this;
         const apiBaseUrl = "http://localhost:8081/api";
+
+        if ((Object.entries(mockData).length !== 0 && mockData.constructor === Object)) {
+            this.setState({
+                zeroFlag: false
+            })
+        }
 
         // axios.get(`${apiBaseUrl}/votesSet/user/`+ localStorage.getItem('username')) //TODO
         //       .then(function (response) {
@@ -44,7 +48,7 @@ class HomeScreen extends Component {
     sendVotesSetAction = (data) => {
         this.props.sendVotesSet(data);
     }
-    
+
     openAddWindow = () => {
         this.setState({
             addWindow: !this.state.addWindow
@@ -55,13 +59,6 @@ class HomeScreen extends Component {
         this.setState({
             editWindow: !this.state.editWindow,
             editWindowData: data
-        })
-    }
-
-    openPlayWindow = (data) => {
-        this.setState({
-            playWindow:!this.state.playWindow,
-            dataForplayWrapper: data
         })
     }
 
@@ -84,13 +81,6 @@ class HomeScreen extends Component {
         history.push('/');//TODO
     }
 
-    selectLanguages = e => {
-        let lang = e.target.value
-        this.setState({
-            lang: lang
-        });
-    }
-    
     removeVoteBox = (id, name, langFlag) => {
         let removeData = {
             id: id,
@@ -98,14 +88,8 @@ class HomeScreen extends Component {
             langFlag: langFlag
         }
         this.setState({
-            dataForRemovePopUp:removeData,
+            dataForRemovePopUp: removeData,
             removePopUp: !this.state.removePopUp
-        })
-    }
-
-    setOriginalLang = () => {
-        this.setState({
-            lang: '-'
         })
     }
 
@@ -115,52 +99,31 @@ class HomeScreen extends Component {
         })
     }
 
-  render() {
-    const { addWindow, lang, editWindow, removePopUp, editWindowData, dataForRemovePopUp, playWindow, dataForplayWrapper } = this.state;
-      let languages = [];
-      // eslint-disable-next-line
-      this.props.Votes.map((Voteka) => {
-          if(typeof Voteka === 'undefined'){}
-          else{
-            let dataVote = Voteka.vote;
-            dataVote = dataVote.map(function(obj) {
-                return Object.keys(obj).sort().map(function(key) { 
-                    return obj[key];
-                });
-            });
-            Voteka.vote = dataVote.slice(0);  
-            let flag1 = true;
-            let flag2 = true;
-            for (let i = 0; i < languages.length; i++){
-                if(Voteka.frontLanguage === languages[i]){
-                    flag1 = false;
-                }
-                if(Voteka.backLanguage === languages[i]){
-                    flag2 = false;
-                }
-            }
-            if(flag1 === true){
-                languages.push(Voteka.frontLanguage)
-            }
-            if(flag2 === true){
-                languages.push(Voteka.backLanguage)
-            }
-          }
-      });
+    newPoll = () => {
+        alert("open Add window!")
+        this.openAddWindow()//wazne, zeby stan po zamknieciu alertu zmienic
+    }
 
-    return (
-      <MuiThemeProvider>
-        <div className="HomeScreen">
-            <AppBar className="homescreen-topGrid" style={{background: "green"}} showMenuIconButton={false} title="e-Vote App">
-                <Button variant="dark" style={{marginRight: "10px"}} onClick={() => this.openAddWindow()}>Add New</Button>
-                <Button variant="dark" onClick={() => this.logout()}>Log Out</Button>
-            </AppBar>
-            {
-                addWindow ? <PollCreated openWindow={this.openAddWindow} /> : <VotesContainer VotesStore={this.props.Votes} VotesLang={lang} editWrapper={this.openEditWindow} playVote={this.openPlayWindow} removeWrapper={this.removeVoteBox} /> 
-                // addWindow ? <NewVote VotePack={this.sendVotesSetAction} openWindow={this.openAddWindow} /> : null //TODO
-            }
-            {/* <VotesContainer VotesStore={this.props.Votes} VotesLang={lang} editWrapper={this.openEditWindow} playVote={this.openPlayWindow} removeWrapper={this.removeVoteBox} />  //TODO*/}
-            {
+    render() {
+        const { addWindow, zeroFlag, lang, editWindow, removePopUp, editWindowData, dataForRemovePopUp } = this.state;
+
+        return (
+            <MuiThemeProvider>
+                <div className="HomeScreen">
+                    <AppBar className="homescreen-topGrid" style={{ background: "green" }} showMenuIconButton={false} title="e-Vote App">
+                        <Button variant="dark" style={{ marginRight: "10px" }} onClick={() => this.openAddWindow()}>Add New</Button>
+                        <Button variant="dark" onClick={() => this.logout()}>Log Out</Button>
+                    </AppBar>
+                    {
+                        zeroFlag ? <div className='emptyContainer'>
+                            <span className='font-no-votes'>You do not have anything to vote :(</span>
+                            <img className='noVotes-image' src='img/noVotes.png' alt="NO POLLS AVAILABLE" />
+                        </div> : <VotesContainer VotesStore={mockData} playVote={this.openPlayWindow} />
+                    }
+                    {
+                        addWindow ? this.newPoll() : null
+                    }
+                    {/* {
                 editWindow ? <EditVote openWindow={this.openEditWindow} data={editWindowData}/> : null 
             }
             {
@@ -171,16 +134,11 @@ class HomeScreen extends Component {
                         openWindow={this.openRemovePopUp}
                     />
                 : null
-            }
-            {
-                playWindow ?
-                    <PlayVote openWindowFun={this.openPlayWindow} Voteka={dataForplayWrapper} />
-                : null
-            }
-        </div>
-      </MuiThemeProvider>
-    );
-  }
+            } */}
+                </div>
+            </MuiThemeProvider>
+        );
+    }
 }
 
 const mapStateToProps = state => {
