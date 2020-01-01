@@ -7,18 +7,19 @@ import Modal from 'react-bootstrap/Modal'
 import PollCreated from './PollCreated'
 import { toggleCardFunction } from '../actions/VotesActions'
 
-function MyVerticallyCenteredModal(props) {
+function VerticallyCenteredModal(props) {
     return (
         <Modal
             {...props}
-            size="lg"
+            size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            style={{zIndex: "100001"}}
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Modal heading
-          </Modal.Title>
+                <Modal.Title style={{ color: "green" }} id="contained-modal-title-vcenter">
+                    {props.data.pollName}
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <PollCreated data={props.data} />
@@ -48,20 +49,18 @@ class VoteBox extends Component {
         return (
             <Fragment>
                 {/* {toggleCard ? null : */}
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '20rem', boxShadow: "0px 0px 7px 0px rgba(0,0,0,0.2)" }}>
                     <Card.Body>
                         <Card.Title>{cardTitle}</Card.Title>
                         <Card.Text>
                             {textCard}
                         </Card.Text>
-                        {/* <ButtonToolbar> */}
                         <Button variant="success" onClick={() => this.setModalShow(true)}>Open</Button>
-                        <MyVerticallyCenteredModal
+                        <VerticallyCenteredModal
                             show={modalShow}
                             onHide={() => this.setModalShow(false)}
                             data={data}
                         />
-                        {/* </ButtonToolbar> */}
                         {/* <Button variant="success" onClick={() => { this.props.toggleCardFunction(true) }}>Open</Button> */}
                     </Card.Body>
                 </Card>

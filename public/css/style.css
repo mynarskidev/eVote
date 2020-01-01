@@ -14,7 +14,7 @@ form {
     position: relative;
 }
 
-.pollcreated .header .name {
+/* .pollcreated .header .name {
     text-align: center;
     margin-top: 0;
     margin-bottom: 50px;
@@ -23,7 +23,15 @@ form {
 
 .pollcreated .header .logo {
     width: 100%;
-}
+} */
+
+/* .pollcreated {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  } */
 
 .pollcreated .main {
     display: flex;
@@ -32,13 +40,13 @@ form {
 }
 
 .pollcreated .main>div {
-    margin: 0 20px;
+    margin: 20px 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.2);
-    width: 50%;
+    width: 322px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 980px) {
     .pollcreated .main {
         flex-direction: column;
     }

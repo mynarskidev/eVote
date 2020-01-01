@@ -23,16 +23,177 @@ export const mockData = {
     },
     two:{
         pollName: 'What do you?',
-        pollQuestions: ['Do you?', 'Do you2?', 'Do you3?'],
+        pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
               { option: 'xvvcv', votes: 10 },
               { option: 'xcv', votes: 1 },
             ],
             [
+              { option: 'sss', votes: 5 },
+              { option: 'xcvxdddvvvc', votes: 2 },
+              { option: 'cfff3v', votes: 1 }
+            ],
+            [
+              { option: 'sdf', votes: 5 },
+              { option: 'xcvxvfffvvc', votes: 2 },
+              { option: 'c3sssv', votes: 1 }
+            ],
+            [
               { option: 'xcxxxxvxcv', votes: 5 },
               { option: 'xcvxvvvc', votes: 2 },
               { option: 'c3v', votes: 1 }
+            ],
+            [
+              { option: 'xcvx3cvv', votes: 7 },
+              { option: 'nv13bn', votes: 4 },
+              { option: 'ghja1sgj', votes: 2 },
+              { option: 'ghjqq111ghj', votes: 1 },
+              { option: 'ghjghjg11hjgj', votes: 3 }
+            ]
+          ]
+    
+    },
+    sdf:{
+        pollName: 'What do you?',
+        pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
+        pollAnswers: [
+            [
+              { option: 'xvvcv', votes: 10 },
+              { option: 'xcv', votes: 1 },
+            ],
+            [
+              { option: 'sss', votes: 5 },
+              { option: 'xcvxdddvvvc', votes: 2 },
+              { option: 'cfff3v', votes: 1 }
+            ],
+            [
+              { option: 'sdf', votes: 5 },
+              { option: 'xcvxvfffvvc', votes: 2 },
+              { option: 'c3sssv', votes: 1 }
+            ],
+            [
+              { option: 'xcxxxxvxcv', votes: 5 },
+              { option: 'xcvxvvvc', votes: 2 },
+              { option: 'c3v', votes: 1 }
+            ],
+            [
+              { option: 'xcvx3cvv', votes: 7 },
+              { option: 'nv13bn', votes: 4 },
+              { option: 'ghja1sgj', votes: 2 },
+              { option: 'ghjqq111ghj', votes: 1 },
+              { option: 'ghjghjg11hjgj', votes: 3 }
+            ]
+          ]
+    
+    },
+    ggg:{
+        pollName: 'What do you?',
+        pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
+        pollAnswers: [
+            [
+              { option: 'xvvcv', votes: 10 },
+              { option: 'xcv', votes: 1 },
+            ],
+            [
+              { option: 'sss', votes: 5 },
+              { option: 'xcvxdddvvvc', votes: 2 },
+              { option: 'cfff3v', votes: 1 }
+            ],
+            [
+              { option: 'sdf', votes: 5 },
+              { option: 'xcvxvfffvvc', votes: 2 },
+              { option: 'c3sssv', votes: 1 }
+            ],
+            [
+              { option: 'xcxxxxvxcv', votes: 5 },
+              { option: 'xcvxvvvc', votes: 2 },
+              { option: 'c3v', votes: 1 }
+            ],
+            [
+              { option: 'xcvx3cvv', votes: 7 },
+              { option: 'nv13bn', votes: 4 },
+              { option: 'ghja1sgj', votes: 2 },
+              { option: 'ghjqq111ghj', votes: 1 },
+              { option: 'ghjghjg11hjgj', votes: 3 }
+            ]
+          ]
+    },
+    dddddd:{
+        pollName: 'What do you?',
+        pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
+        pollAnswers: [
+            [
+              { option: 'xvvcv', votes: 10 },
+              { option: 'xcv', votes: 1 },
+            ],
+            [
+              { option: 'sss', votes: 5 },
+              { option: 'xcvxdddvvvc', votes: 2 },
+              { option: 'cfff3v', votes: 1 }
+            ],
+            [
+              { option: 'sdf', votes: 5 },
+              { option: 'xcvxvfffvvc', votes: 2 },
+              { option: 'c3sssv', votes: 1 }
+            ],
+            [
+              { option: 'xcxxxxvxcv', votes: 5 },
+              { option: 'xcvxvvvc', votes: 2 },
+              { option: 'c3v', votes: 1 }
+            ],
+            [
+              { option: 'xcvx3cvv', votes: 7 },
+              { option: 'nv13bn', votes: 4 },
+              { option: 'ghja1sgj', votes: 2 },
+              { option: 'ghjqq111ghj', votes: 1 },
+              { option: 'ghjghjg11hjgj', votes: 3 }
+            ]
+          ]
+    },
+    sdfsdfsfd:{
+        pollName: 'What do you?',
+        pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?', 'Do sdfsdfsdf?', 'Do wwww?', 'Do ffssw?'],
+        pollAnswers: [
+            [
+              { option: 'xvvcv', votes: 10 },
+              { option: 'xcv', votes: 1 },
+            ],
+            [
+              { option: 'sss', votes: 5 },
+              { option: 'xcvxdddvvvc', votes: 2 },
+              { option: 'cfff3v', votes: 1 }
+            ],
+            [
+              { option: 'sdf', votes: 5 },
+              { option: 'xcvxvfffvvc', votes: 2 },
+              { option: 'c3sssv', votes: 1 }
+            ],
+            [
+              { option: 'xcxxxxvxcv', votes: 5 },
+              { option: 'xcvxvvvc', votes: 2 },
+              { option: 'c3v', votes: 1 }
+            ],
+            [
+              { option: 'xcvx3cvv', votes: 7 },
+              { option: 'nv13bn', votes: 4 },
+              { option: 'ghja1sgj', votes: 2 },
+              { option: 'ghjqq111ghj', votes: 1 },
+              { option: 'ghjghjg11hjgj', votes: 3 }
+            ],
+            [
+              { option: 'xcvx3cvv', votes: 7 },
+              { option: 'nv13bn', votes: 4 },
+              { option: 'ghja1sgj', votes: 2 },
+              { option: 'ghjqq111ghj', votes: 1 },
+              { option: 'ghjghjg11hjgj', votes: 3 }
+            ],
+            [
+              { option: 'xcvx3cvv', votes: 7 },
+              { option: 'nv13bn', votes: 4 },
+              { option: 'ghja1sgj', votes: 2 },
+              { option: 'ghjqq111ghj', votes: 1 },
+              { option: 'ghjghjg11hjgj', votes: 3 }
             ],
             [
               { option: 'xcvx3cvv', votes: 7 },
