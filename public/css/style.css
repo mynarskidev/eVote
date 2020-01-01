@@ -118,7 +118,7 @@ form {
     letter-spacing: 0.055em;
 }
 
-.font-addNew-input-lang-hdr {
+.font-addNew-input-quest-hdr {
     font-family: 'lato', sans-serif;
     font-size: 13px;
     opacity: 0.8 !important;
@@ -128,7 +128,7 @@ form {
     display: inline-block
 }
 
-.font-addNew-input-lang {
+.font-addNew-input-quest {
     font-family: 'Raleway', sans-serif;
     font-size: 15px;
     opacity: 0.92 !important;
@@ -437,8 +437,9 @@ form {
 }
 
 .addNew-cont {
-    width: 100%;
-    max-width: 500px;
+    width: 60vw;
+    /* width: 100%;
+    max-width: 700px; */
     position: absolute;
     left: 0px;
     right: 0px;
@@ -528,6 +529,7 @@ form {
 }
 
 .addNew-form {
+    width: 100%;
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
@@ -535,25 +537,19 @@ form {
     flex-direction: column;
 }
 
-.addNew-fromCsv {
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
 .addNew-input-container {
+    width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-.addNew-languagesInput-cont {
+.addNew-questionsInput-cont {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
 }
 
-.addNew-langsInput-wrapper {
+.addNew-questInput-wrapper {
     display: flex;
     flex-direction: row;
 }
@@ -604,11 +600,11 @@ form {
     border-bottom: 2px solid #1564a3;
 }
 
-.addNew-lang-input {
+.addNew-question-input {
     display: inline-block;
     outline: none;
     box-shadow: none;
-    width: 180px;
+    width: 250px;
     margin: 6px 28px 33px 0px;
     padding: 3px 2px 3px 2px;
     border: none;
@@ -617,7 +613,7 @@ form {
     transition: all 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.addNew-lang-input:focus {
+.addNew-question-input:focus {
     border-bottom: 2px solid #1564a3;
 }
 
@@ -626,8 +622,8 @@ form {
     border: none;
     border-bottom: 1px solid #555555;
     margin-bottom: 8px;
-    padding: 4px 3px 5px 3px;
-    width: 110px;
+    padding: 3px 2px 3px 2px;
+    width: 250px;
     margin-right: 23px;
     opacity: 0.8;
     transition: all 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -650,7 +646,8 @@ form {
     margin-top: 40px;
     transition: all 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.15);
-    background-color: #ecf0f1;
+    background-color: #28a745;
+    color: #fff;
     border-radius: 4px;
     cursor: pointer;
     outline: none;

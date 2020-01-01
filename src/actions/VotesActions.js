@@ -19,6 +19,7 @@ export function toggleCardFunction(bool) {
 }
 
 export const getAllVotesSetsSuccess = (data) => {
+    console.log(data)
     return {
         type: GET_ALL,
         Votes: data,
@@ -33,6 +34,7 @@ export const cleanScreen = () => {
 };
 
 export const sendVotesSet = (data) => {
+    console.log("!!!!!!!!!!!!!!!!!!!", data)
     return (dispatch) => {
       return axios.post(`${apiBaseUrl}/votesSet`, data, {headers: {'Authorization': localStorage.getItem('token')}})
         .then(response => {

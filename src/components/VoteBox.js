@@ -45,6 +45,12 @@ class VoteBox extends Component {
     render() {
         const { cardTitle, textCard, data, toggleCard } = this.props;
         const { modalShow } = this.state;
+        // // const cosik = Object.values(textCard).split(',').join("<br />")
+        // const a = Object.keys(textCard).forEach(function(key) {
+
+        //     console.log(textCard[key]);
+          
+        //   });
 
         return (
             <Fragment>
@@ -53,7 +59,8 @@ class VoteBox extends Component {
                     <Card.Body>
                         <Card.Title>{cardTitle}</Card.Title>
                         <Card.Text>
-                            {textCard}
+                            Click open button to see questions
+                            {/* {textCard} */}
                         </Card.Text>
                         <Button variant="success" onClick={() => this.setModalShow(true)}>Open</Button>
                         <VerticallyCenteredModal

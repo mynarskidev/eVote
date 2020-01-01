@@ -153,7 +153,7 @@ export const mockData = {
     },
     sdfsdfsfd:{
         pollName: 'What do you?',
-        pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?', 'Do sdfsdfsdf?', 'Do wwww?', 'Do ffssw?'],
+        pollQuestions: ['Do you? ', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?', 'Do sdfsdfsdf?', 'Do wwww?', 'Do ffssw?'],
         pollAnswers: [
             [
               { option: 'xvvcv', votes: 10 },
@@ -161,7 +161,7 @@ export const mockData = {
             ],
             [
               { option: 'sss', votes: 5 },
-              { option: 'xcvxdddvvvc', votes: 2 },
+              { option: 'xcvxdddvvvwerwer rwer wer wer wer wer wersdfsdf sd fsdfsdf c', votes: 2 },
               { option: 'cfff3v', votes: 1 }
             ],
             [

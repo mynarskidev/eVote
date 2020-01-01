@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import InputVote from './InputVote'
 import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'react-bootstrap/Button';
+import { Grid } from '@material-ui/core'
+
 import ReactFileReader from 'react-file-reader';
 
 
@@ -19,7 +22,7 @@ class NewVote extends Component {
             'height' : '100%'
         },
         vote : [],
-        languages:['',''],
+        questions:['',''],
         boxStyle_bckg:{
             'opacity' : 0
         },
@@ -146,86 +149,53 @@ class NewVote extends Component {
         })
     }
 
-    
-    newLangsuage = (e, nmbr) => {
-        let langs = this.state.languages;
+    addQuestion = async () => {
+        let val = this.state.questions
+        val.push("")
+        await this.setState({
+            questions: val
+        })
+        this.forceUpdate();
+    }
+
+    removeOption = async () => {
+        let tempQuestions = this.state.questions
+        tempQuestions.pop();
+        await this.setState({
+            questions: tempQuestions
+        })
+        this.forceUpdate();
+      }
+
+    newQuestion = (e, nmbr) => {
+        let quest = this.state.questions;
         let txt = e.target.value;
         txt = txt.toLowerCase();
         txt = txt.charAt(0).toUpperCase() + txt.slice(1);
-        langs[nmbr] = txt;
+        quest[nmbr] = txt;
         this.setState({
-            languages: langs
+            questions: quest
         })
     }
-    
-    handleFiles = files => {
-        var reader = new FileReader();
-        const other=this;
-        reader.onload = function(e) {
-            let lines = reader.result.split(/\r?\n/);
-            let words = lines[1].split(",")
 
-            let word, oddOnes=[], evenOnes=[], data=[];
-            for(let i=2; i<lines.length-1; i++) {
-                word = lines[i].split(",")
-                for (let j=0; j<word.length; j++){
-                    (j % 2 === 0 ? evenOnes : oddOnes).push(word[j])
-                }
-            }
-            for (let i=0; i<evenOnes.length; i++){
-                data.push([evenOnes[i], oddOnes[i]])
-            }
-            let VoteName = lines[0];
-            let VoteLangs = [words[0],words[1]];
-            let VoteIfLearned = false;
-            let VoteArr = data;
-            if (typeof VoteName !== 'undefined' && VoteName.length > 0) {
-                let packedData = {};
-                packedData.votesSetName = VoteName;
-                packedData.username = localStorage.getItem('username');
-                packedData.frontLanguage = VoteLangs[0];
-                packedData.backLanguage = VoteLangs[1];
-                packedData.ifLearned = VoteIfLearned;
-                packedData.vote = []
-                // eslint-disable-next-line
-                VoteArr.map((Vote) => {
-                    if(typeof Vote != 'undefined' && Vote[0].length > 0 && Vote[1].length > 0){
-                        Vote.splice(2,1);
-                        Vote[2] = shortid.generate();
-                        packedData.vote.push(Vote);
-                    }
-                })
-                if(packedData.vote.length > 0 ){
-                    other.props.VotePack(packedData);
-                    other.handleWin();
-                }
-            }
-        }
-        reader.readAsText(files[0]);
-    }
-
-    sendVote = (e) => {
+    sendNewPoll = (e) => {
         e.preventDefault();
         let VoteName = this.state.votesSetName;
-        let VoteLangs = this.state.languages;
-        let VoteIfLearned = this.state.ifLearned;
-        VoteLangs[0] = VoteLangs[0].toLowerCase();
-        VoteLangs[1] = VoteLangs[1].toLowerCase();
-        VoteLangs[0] = VoteLangs[0].charAt(0).toUpperCase() + VoteLangs[0].slice(1);
-        VoteLangs[1] = VoteLangs[1].charAt(0).toUpperCase() + VoteLangs[1].slice(1);
+        let VoteQuest = this.state.questions;
+        let VoteIfLearned = this.state.ifLearned;//TODO zmien na ifVoted
+        VoteQuest[0] = VoteQuest[0].toLowerCase();
+        VoteQuest[0] = VoteQuest[0].charAt(0).toUpperCase() + VoteQuest[0].slice(1);
         let VoteArr = this.state.vote;
         if (typeof VoteName !== 'undefined' && VoteName.length > 0) {
-            if(VoteLangs[0] !== VoteLangs[1]){
                 let packedData = {};
                 packedData.votesSetName = VoteName;
                 packedData.username = localStorage.getItem('username');
-                packedData.frontLanguage = VoteLangs[0];
-                packedData.backLanguage = VoteLangs[1];
+                packedData.question = VoteQuest[0];
                 packedData.ifLearned = VoteIfLearned;
                 packedData.vote = []
                 // eslint-disable-next-line
                 VoteArr.map((Vote) => {
-                    if(typeof Vote != 'undefined' && Vote[0].length > 0 && Vote[1].length > 0){
+                    if(typeof Vote != 'undefined' && Vote[0].length > 0){
                         Vote.splice(2,1);
                         Vote[2] = shortid.generate();
                         packedData.vote.push(Vote);
@@ -235,29 +205,45 @@ class NewVote extends Component {
                     this.props.VotePack(packedData);
                     this.handleWin();
                 }
-            }else{
-                document.getElementById('first-lang-input').focus();
-            }  
         }  
     }
     
-    render(){
+    render(){        
         if(this.state.firstTime){
            for(let i = 0; i < 3; i++){
                let id = globalId
                 inputs[id] = 
                     <div className='addNew-input-container' key={id}>
-                    <InputVote  data={(e) => this.updateVote(e)} id={id} remove={(id) => this.removeInput(id)}/>
+                        <InputVote data={(e) => this.updateVote(e)} id={id} remove={(id) => this.removeInput(id)}/>
                     </div>
                 globalId++;
             } 
         }
-        let allInputsNumber = 0;
-        for(let i = 0; i<inputs.length; i++ ){
-            let element = inputs[i];
-            if( element != null ) {
-                allInputsNumber++;
-            }
+        let optionsToRender = [];
+        let globalOptionsId = 0;
+        for (var i = 0; i < this.state.questions.length; i++) {
+            let id = globalOptionsId;
+            optionsToRender[id] =
+                <Grid item key={id}  style={{ boxShadow: "0px 0px 7px 0px rgba(0,0,0,0.2)", margin: "10px",  marginRight: "15px" }}>
+                    <div className="addNew-questionsInput-cont">
+                        <span className='font-addNew-input-quest-hdr'>Question</span>
+                        <div className="addNew-questInput-wrapper">
+                            <input className="addNew-question-input font-addNew-input-quest" required="required" onChange={(e) => this.newQuestion(e, 0)} />
+                        </div>
+                    </div>
+
+                    <div className='addNew-addNewBTN-container'>
+                        <Button variant="success" onClick={() => this.addInput()}>Add another answer</Button>
+                    </div>
+
+                    <div className='addNew-inputs-col'>
+                        <CSSTransitionGroup transitionName="a-AddNew-inputs" transitionEnterTimeout={350} transitionLeaveTimeout={250}>
+                            {inputs}
+                            {/* Tu bedzie ten inputs do przerobienia w ch.. */}
+                        </CSSTransitionGroup>
+                    </div>
+                </Grid>
+            globalOptionsId++
         }
 
         return (
@@ -265,40 +251,18 @@ class NewVote extends Component {
                 <div className="addNew-bckg" onClick={() => this.handleWin()} style={this.state.boxStyle_bckg}>
                 </div>
                 <div className="addNew-cont" id='addNew-box' style={this.state.boxStyle_cont}>
-                    <form className='addNew-form' onSubmit={(e) => this.sendVote(e)}>
+                    <form className='addNew-form' onSubmit={(e) => this.sendNewPoll(e)}>
                         <div className='addNew-input-container'>
-                            <span className='font-addNew-input-name-hdr'>Title</span>
+                            <span className='font-addNew-input-name-hdr'>Poll Title</span>
                             <input value={this.state.votesSetName} onChange={this.updateName} required="required" className="addNew-name-input font-addNew-input-name" />
                         </div>
-
-                        <div className="addNew-languagesInput-cont">
-                            <span className='font-addNew-input-lang-hdr'>Languages</span>
-                            <div className="addNew-langsInput-wrapper">
-                                <input value={this.state.frontLanguage} className="addNew-lang-input font-addNew-input-lang" id='first-lang-input' required="required" onChange={(e) => this.newLangsuage(e, 0)} />
-                                <input value={this.state.backLanguage} className="addNew-lang-input font-addNew-input-lang" required="required" onChange={(e) => this.newLangsuage(e, 1)} />
-                            </div>
-                        </div>
-
-                        <div className='addNew-addNewBTN-container'>
-                            <RaisedButton label={"Add another pair"} primary onClick={() => this.addInput()} />
-                            <div className='addNew-amount-cont'>
-                                <span className='font-addNew-amount'>Amount: </span>
-                                <span className='font-addNew-amount-nmbr'>{allInputsNumber}</span>
-                            </div>
-                        </div>
-
-                        <div className='addNew-inputs-col'>
-                            <CSSTransitionGroup transitionName="a-AddNew-inputs" transitionEnterTimeout={350} transitionLeaveTimeout={250}>
-                                {inputs}
-                            </CSSTransitionGroup>
-                        </div>
-                        <input className='addNew-submit-collection font-addNew-addCollection-btn' type="submit" value="ADD COLLECTION" />
+                        <Button variant="success" onClick={() => this.addQuestion()}>Add another question</Button>
+                        <Button variant='danger' style={{"marginLeft": "30px"}} onClick={this.removeOption} disabled={this.state.questions.length===1} >Delete question!</Button> 
+                        <Grid container alignItems="center" spacing={16} direction="row" justify="center" style={{ margin: "10px" }}>
+                            {optionsToRender}
+                        </Grid>
+                        <input className='addNew-submit-collection font-addNew-addCollection-btn' type="submit" value="Add to database" />
                     </form>
-                    <div className="addNew-fromCsv">
-                        <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                            <RaisedButton label={"Or Import from CSV"} primary />
-                        </ReactFileReader>
-                    </div>
                 </div>
             </div>
         )
