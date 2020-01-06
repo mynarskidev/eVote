@@ -8,7 +8,7 @@ import VotesContainer from './VotesContainer'
 import { sendVotesSet, getAllVotesSetsSuccess, cleanScreen } from '../actions/VotesActions'
 import history from '../helpers/History';
 import { mockData } from '../mockData'
-import NewVote from './NewVote';
+import NewVoteContainer from './NewVoteContainer';
 // import axios from 'axios';
 // import EditVote from './EditVote'
 // import RemoveVoteWrapper from './RemoveVoteWrapper'
@@ -17,12 +17,9 @@ import NewVote from './NewVote';
 class HomeScreen extends Component {
     state = {
         votesData: {},
+        didDataChanged: false,
         zeroFlag: true,
-        addWindow: false,
-        editWindow: false,
-        removePopUp: false,
-        dataForRemovePopUp: [],
-        lang: '-',
+        addWindow: false
     }
 
     async componentDidMount() {
@@ -32,8 +29,8 @@ class HomeScreen extends Component {
         // axios.get(`${apiBaseUrl}/votesSet/user/`+ localStorage.getItem('username')) //TODO
         //       .then(function (response) {
             //           if (response.status === 200) {
-                other.props.getAllVotesSetsSuccess(mockData)
-                await this.setState({votesData: mockData})
+                await other.props.getAllVotesSetsSuccess(mockData)
+                await this.setState({votesData: this.props.Votes})
                 //             other.props.getAllVotesSetsSuccess(response.data.votesSetList)
                 //           }
                 //       })
@@ -48,6 +45,18 @@ class HomeScreen extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.Votes !== prevProps.Votes) {
+            this.setState({votesData: this.props.Votes})
+        }
+    }
+
+    handleDataChange() {
+        this.setState({
+            didDataChanged: !this.state.didDataChanged
+        })
+    }
+
     sendVotesSetAction = (data) => {
         this.props.sendVotesSet(data);
     }
@@ -55,13 +64,6 @@ class HomeScreen extends Component {
     openAddWindow = () => {
         this.setState({
             addWindow: !this.state.addWindow
-        })
-    }
-
-    openEditWindow = (data) => {
-        this.setState({
-            editWindow: !this.state.editWindow,
-            editWindowData: data
         })
     }
 
@@ -85,26 +87,8 @@ class HomeScreen extends Component {
         history.push('/');//TODO
     }
 
-    removeVoteBox = (id, name, langFlag) => {
-        let removeData = {
-            id: id,
-            name: name,
-            langFlag: langFlag
-        }
-        this.setState({
-            dataForRemovePopUp: removeData,
-            removePopUp: !this.state.removePopUp
-        })
-    }
-
-    openRemovePopUp = () => {
-        this.setState({
-            removePopUp: !this.state.removePopUp
-        })
-    }
-
     render() {
-        const { addWindow, zeroFlag, votesData, lang, editWindow, removePopUp, editWindowData, dataForRemovePopUp } = this.state;
+        const { addWindow, zeroFlag, votesData } = this.state;
 
         return (
             <MuiThemeProvider>
@@ -117,23 +101,11 @@ class HomeScreen extends Component {
                         zeroFlag ? <div className='emptyContainer'>
                             <span className='font-no-votes'>You do not have anything to vote :(</span>
                             <img className='noVotes-image' src='img/noVotes.png' alt="NO POLLS AVAILABLE" />
-                        </div> : <VotesContainer VotesStore={mockData} playVote={this.openPlayWindow} />
+                        </div> : <VotesContainer onDataChange={() => this.handleDataChange()} VotesStore={votesData} playVote={this.openPlayWindow} />
                     }
                     {
-                        addWindow ? <NewVote VotePack={this.sendVotesSetAction} openWindow={this.openAddWindow} /> : null
+                        addWindow ? <NewVoteContainer VotePack={this.sendVotesSetAction} openWindow={this.openAddWindow} /> : null
                     }
-                    {/* {
-                editWindow ? <EditVote openWindow={this.openEditWindow} data={editWindowData}/> : null 
-            }
-            {
-                removePopUp ?
-                    <RemoveVoteWrapper 
-                        data={dataForRemovePopUp}
-                        setLang={this.setOriginalLang}
-                        openWindow={this.openRemovePopUp}
-                    />
-                : null
-            } */}
                 </div>
             </MuiThemeProvider>
         );

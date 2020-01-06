@@ -13,11 +13,12 @@ class VotesContainer extends Component {
     return (
       <Grid container alignItems="center" spacing={16} direction="row" justify="flex-start" style={{marginTop: "20px", paddingLeft: "20px", paddingRight: "5px", width:"100%"}}>
         {Object.keys(VotesStore).map((key, index) => {
-          // console.log(VotesStore[key].pollQuestions)
-          // console.log(typeof(VotesStore[key].pollQuestions))
           return <Grid item key={key}>
             <VoteBox
+              onDataChange={this.props.onDataChange}
               key={key}
+              id={key}
+              index={index}
               userRole={this.state.userRole}
               data={VotesStore[key]}
               cardTitle={VotesStore[key].pollName}

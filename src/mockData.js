@@ -1,6 +1,6 @@
 export const mockData = {
     one:{
-        pollName: 'Do you like me poll',
+        pollName: 'Do you like msdfe poll',
         pollQuestions: ['Do you like me?', 'Do you like me2?', 'Do you like me3?'],
         pollAnswers: [
             [
@@ -22,7 +22,7 @@ export const mockData = {
           ]
     },
     two:{
-        pollName: 'What do yosdsdu?',
+        pollName: 'What do yosdddsdu?',
         pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
@@ -55,7 +55,7 @@ export const mockData = {
     
     },
     sdf:{
-        pollName: 'What do yo22221u?',
+        pollName: 'What do yoqqq22221u?',
         pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
@@ -88,7 +88,7 @@ export const mockData = {
     
     },
     ggg:{
-        pollName: 'What111 do you?',
+        pollName: 'What111 doe434 you?',
         pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
@@ -120,7 +120,7 @@ export const mockData = {
           ]
     },
     dddddd:{
-        pollName: 'Wha24314214t do you?',
+        pollName: 'Wha2431421435354t do you?',
         pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
@@ -152,7 +152,7 @@ export const mockData = {
           ]
     },
     sdfsdfsfd:{
-        pollName: 'What d1124154124o you?',
+        pollName: 'What d1124154124444444o you?',
         pollQuestions: ['Do you? ', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?', 'Do sdfsdfsdf?', 'Do wwww?', 'Do ffssw?'],
         pollAnswers: [
             [

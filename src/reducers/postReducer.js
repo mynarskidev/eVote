@@ -1,11 +1,12 @@
 import { TOGGLE_CARD, SEND_VOTE_SET, GET_ALL, EDIT_VOTE_NAME, EDIT_VOTE_IFLEARNED, EDIT_VOTE, EDIT_VOTE_LANGUAGES, REMOVE_VOTE_SET, REMOVE_SINGLE_VOTE, ADD_SINGLE_VOTE, CLEAN_ALL } from '../store/types'
 
-
 export default function postReducer(state={Votes: [], toggleCard: null}, action){
     switch(action.type){
         case GET_ALL:{
+
             let data = action.Votes;
             state = {Votes: data}
+            console.log(state)
             return state
         }
         case TOGGLE_CARD:{
@@ -79,12 +80,11 @@ export default function postReducer(state={Votes: [], toggleCard: null}, action)
             return state
         }
         case REMOVE_VOTE_SET:{
+            console.log("Przed: ", state.Votes)
+            delete state.Votes[action.id]
+            console.log("Po: ", state.Votes)
             state = {...state,
-                Votes:
-                // eslint-disable-next-line
-                state.Votes.filter((e) => {
-                    return e.votesSetId !== action.id
-                })           
+                Votes: state.Votes  
             }
             return state
         }

@@ -17,7 +17,8 @@ const pollStyles = {
 class PollCreated extends Component {
   state = {
     pollAnswers: this.props.data.pollAnswers,
-    pollQuestions: this.props.data.pollQuestions
+    pollQuestions: this.props.data.pollQuestions,
+    howManyAnswers: 0
   }
 
   handleVote = (voteAnswer, pollAnswers, pollNumber) => {
@@ -29,15 +30,23 @@ class PollCreated extends Component {
     let newChangedAnswers = this.state.pollAnswers;
     newChangedAnswers[pollNumber] = newPollAnswers
 
-    this.setState({ pollAnswers: newChangedAnswers });
+    let answersCount = this.state.howManyAnswers;
+    answersCount++;
+
+    this.props.onAnswersCount(answersCount)
+
+    this.setState({ pollAnswers: newChangedAnswers, howManyAnswers: answersCount });
   }
 
-  componentDidMount() {
-    const { pollAnswers } = this.state
+  componentWillUnmount() {
+    this.setState({
+      howManyAnswers: 0
+    })
   }
 
   render() {
     const { pollAnswers, pollQuestions } = this.state
+
     // console.log(this.props.toggleCard)
 
     // return (

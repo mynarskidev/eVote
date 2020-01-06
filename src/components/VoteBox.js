@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Modal from 'react-bootstrap/Modal'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import PollCreated from './PollCreated'
@@ -23,10 +22,10 @@ function VerticallyCenteredModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <PollCreated data={props.data} />
+                <PollCreated onAnswersCount={props.onAnswersCount} data={props.data} />
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="success" onClick={props.onHide}>Close</Button>
+                <Button disabled={props.closingDisabled} variant="success" onClick={props.onHide}>{`Save & Close`}</Button>
             </Modal.Footer>
         </Modal>
     );
@@ -35,23 +34,32 @@ function VerticallyCenteredModal(props) {
 class VoteBox extends Component {
     state = {
         modalShow: false,
+        closingDisabled: true
     }
 
     setModalShow = (value) => {
         this.setState({
-            modalShow: value
+            modalShow: value,
+            closingDisabled: true
         })
     }
 
-    handleDeleteClick() {
-        console.log('delete', this.props.cardTitle);
-        this.props.removeVoteSet(this.props.cardTitle); //todo id tu musi byc
+    handleAnswersCount = (value) => {
+        if(value===this.props.data.pollQuestions.length){
+            this.setState({
+                closingDisabled: false
+            })
+        }
     }
-    
+
+    handleDeleteClick() {
+        this.props.removeVoteSet(this.props.id);
+        this.props.onDataChange()
+    }
 
     render() {
         const { cardTitle, userRole, data, toggleCard } = this.props;
-        const { modalShow } = this.state;
+        const { modalShow, closingDisabled } = this.state;
 
         return (
             <Fragment>
@@ -70,6 +78,8 @@ class VoteBox extends Component {
                             show={modalShow}
                             onHide={() => this.setModalShow(false)}
                             data={data}
+                            onAnswersCount={this.handleAnswersCount}
+                            closingDisabled={closingDisabled}
                         />
                         {/* <Button variant="success" onClick={() => { this.props.toggleCardFunction(true) }}>Open</Button> */}
                     </Card.Body>

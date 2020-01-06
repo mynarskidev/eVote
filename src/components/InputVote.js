@@ -28,7 +28,7 @@ class InputVote extends Component {
         return (
             <div className="addNew-inputs-wrap">
                <input value={this.state.Vote[0]} onChange={(e) => this.typeOfVote(0, e)} required="required" className="addNew-Vote-input font-addNew-input-txt"/>
-                <div onClick={() => {this.props.remove(this.state.Vote[2])}} className="addNew-removeSingleInput-btn"></div>
+                {this.props.length>1 ? <div onClick={() => {this.props.remove(this.state.Vote[2])}} className="addNew-removeSingleInput-btn"></div> : null}
             </div>
         )
     }
