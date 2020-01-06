@@ -3,6 +3,10 @@ import { Grid } from '@material-ui/core'
 import VoteBox from './VoteBox';
 
 class VotesContainer extends Component {
+  state = {
+    userRole: localStorage.getItem('role'),
+  }
+
   render() {
     const { VotesStore } = this.props;
 
@@ -14,6 +18,7 @@ class VotesContainer extends Component {
           return <Grid item key={key}>
             <VoteBox
               key={key}
+              userRole={this.state.userRole}
               data={VotesStore[key]}
               cardTitle={VotesStore[key].pollName}
               textCard={VotesStore[key].pollQuestions} />

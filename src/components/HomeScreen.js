@@ -73,14 +73,15 @@ class HomeScreen extends Component {
         // let apiBaseUrl = "http://localhost:8081/api";
         // axios.delete(apiBaseUrl + '/session')
         // .then(function (response) {
-        //         if (response.status === 200) {
-        //                 other.props.cleanScreen()
-        //                 history.push('/home');
-        //             }
-        //         })
-        // .catch(function (error) {
-        //     //alert("Something wrong") //TODO
-        // });
+            //         if (response.status === 200) {
+                //                 other.props.cleanScreen()
+                //                 history.push('/home');
+                //             }
+                //         })
+                // .catch(function (error) {
+                    //     //alert("Something wrong") //TODO
+                    // });
+        localStorage.removeItem('role');//todo
         history.push('/');//TODO
     }
 

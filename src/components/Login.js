@@ -42,6 +42,7 @@ class Login extends Component {
         } else {
           this.setState({error: ''})
         //   this.handleApiPost(event)//todo
+            username==='admin' ? localStorage.setItem('role', 'admin') : localStorage.setItem('role', 'user');
             history.push('/home');
         }
     }
@@ -59,6 +60,7 @@ class Login extends Component {
                             localStorage.setItem('token', response.data.token);
                             localStorage.setItem('auth', response.data.authenticated);
                             localStorage.setItem('username', response.data.username);
+                            // localStorage.setItem('role', response.data.role); //todo
                         }
                         history.push('/home');
                     }

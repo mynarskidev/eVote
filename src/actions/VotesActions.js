@@ -86,17 +86,22 @@ export const editIfLearnedVoteSetSuccess = (data) => {
 }
 
 export const removeVoteSet = (id) => {
-    return (dispatch) => {
-      return axios.delete(`${apiBaseUrl}/votesSet/`+ id)
-      .then(response => {
-        if (response.status === 204) {
-          dispatch(removeVoteSetSuccess(id))      
-        }
-      })
-      .catch(error => {
-        throw(error);
-      });
-  };
+    console.log(id)
+    return {
+        type: REMOVE_VOTE_SET,
+        id : id
+    } //TODOOOOOOOOO
+//     return (dispatch) => {
+//       return axios.delete(`${apiBaseUrl}/votesSet/`+ id)
+//       .then(response => {
+//         if (response.status === 204) {
+//           dispatch(removeVoteSetSuccess(id))      
+//         }
+//       })
+//       .catch(error => {
+//         throw(error);
+//       });
+//   };
 };
     
 export const removeVoteSetSuccess = (id) => {

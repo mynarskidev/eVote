@@ -38,7 +38,7 @@ class PollCreated extends Component {
 
   render() {
     const { pollAnswers, pollQuestions } = this.state
-    console.log(this.props.toggleCard)
+    // console.log(this.props.toggleCard)
 
     // return (
     //   <Fragment>

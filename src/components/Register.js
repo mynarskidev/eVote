@@ -62,6 +62,7 @@ class Register extends Component {
         name: this.state.name,
         surname: this.state.surname,
         email: this.state.email,
+        //role: user // admin ma role admin, ale nie mozna z palca go zrobic
     }
     axios.post(apiBaseUrl + '/users/register', payload)
       .then(function (response) {

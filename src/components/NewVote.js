@@ -187,24 +187,24 @@ class NewVote extends Component {
         VoteQuest[0] = VoteQuest[0].charAt(0).toUpperCase() + VoteQuest[0].slice(1);
         let VoteArr = this.state.vote;
         if (typeof VoteName !== 'undefined' && VoteName.length > 0) {
-                let packedData = {};
-                packedData.votesSetName = VoteName;
-                packedData.username = localStorage.getItem('username');
-                packedData.question = VoteQuest[0];
-                packedData.ifLearned = VoteIfLearned;
-                packedData.vote = []
-                // eslint-disable-next-line
-                VoteArr.map((Vote) => {
-                    if(typeof Vote != 'undefined' && Vote[0].length > 0){
-                        Vote.splice(2,1);
-                        Vote[2] = shortid.generate();
-                        packedData.vote.push(Vote);
-                    }
-                })
-                if( packedData.vote.length > 0 ){
-                    this.props.VotePack(packedData);
-                    this.handleWin();
+            let packedData = {};
+            packedData.votesSetName = VoteName;
+            packedData.username = localStorage.getItem('username');
+            packedData.question = VoteQuest[0];
+            packedData.ifLearned = VoteIfLearned;
+            packedData.vote = []
+            // eslint-disable-next-line
+            VoteArr.map((Vote) => {
+                if(typeof Vote != 'undefined' && Vote[0].length > 0){
+                    Vote.splice(2,1);
+                    Vote[2] = shortid.generate();//TODO tak, ale daj do poll? a nie do opcji?
+                    packedData.vote.push(Vote);
                 }
+            })
+            if( packedData.vote.length > 0 ){
+                this.props.VotePack(packedData);
+                this.handleWin();
+            }
         }  
     }
     
@@ -239,7 +239,7 @@ class NewVote extends Component {
                     <div className='addNew-inputs-col'>
                         <CSSTransitionGroup transitionName="a-AddNew-inputs" transitionEnterTimeout={350} transitionLeaveTimeout={250}>
                             {inputs}
-                            {/* Tu bedzie ten inputs do przerobienia w ch.. */}
+                            {/* TODO Tu bedzie ten inputs do przerobienia w ch.. */}
                         </CSSTransitionGroup>
                     </div>
                 </Grid>

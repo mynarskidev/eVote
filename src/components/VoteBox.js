@@ -4,8 +4,9 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Modal from 'react-bootstrap/Modal'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import PollCreated from './PollCreated'
-import { toggleCardFunction } from '../actions/VotesActions'
+import { toggleCardFunction, removeVoteSet } from '../actions/VotesActions'
 
 function VerticallyCenteredModal(props) {
     return (
@@ -42,25 +43,27 @@ class VoteBox extends Component {
         })
     }
 
-    render() {
-        const { cardTitle, textCard, data, toggleCard } = this.props;
-        const { modalShow } = this.state;
-        // // const cosik = Object.values(textCard).split(',').join("<br />")
-        // const a = Object.keys(textCard).forEach(function(key) {
+    handleDeleteClick() {
+        console.log('delete', this.props.cardTitle);
+        this.props.removeVoteSet(this.props.cardTitle); //todo id tu musi byc
+    }
+    
 
-        //     console.log(textCard[key]);
-          
-        //   });
+    render() {
+        const { cardTitle, userRole, data, toggleCard } = this.props;
+        const { modalShow } = this.state;
 
         return (
             <Fragment>
                 {/* {toggleCard ? null : */}
                 <Card style={{ width: '20rem', boxShadow: "0px 0px 7px 0px rgba(0,0,0,0.2)" }}>
                     <Card.Body>
-                        <Card.Title>{cardTitle}</Card.Title>
+                        <Card.Title>
+                            {cardTitle}
+                            {userRole==='admin'? <DeleteForeverIcon onClick={() => this.handleDeleteClick()} color="secondary" fontSize="large" style={{ cursor: 'pointer', position:'absolute', right:'0', top:'-15px'}} /> : null}
+                        </Card.Title>
                         <Card.Text>
                             Click open button to see questions
-                            {/* {textCard} */}
                         </Card.Text>
                         <Button variant="success" onClick={() => this.setModalShow(true)}>Open</Button>
                         <VerticallyCenteredModal
@@ -84,6 +87,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = { toggleCardFunction }
+const mapDispatchToProps = { removeVoteSet, toggleCardFunction }
 
 export default connect(mapStateToProps, mapDispatchToProps)(VoteBox);
