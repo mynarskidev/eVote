@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Grid } from '@material-ui/core'
 import NewVote from './NewVote';
-import { arrayOf } from 'prop-types';
+// import { arrayOf } from 'prop-types';
 
-let shortid = require('shortid');
+// let shortid = require('shortid');
 class NewVoteContainer extends Component {
     state = {
         pollName:'',
@@ -86,7 +86,7 @@ class NewVoteContainer extends Component {
         this.forceUpdate();
     }
 
-    handleAnswerChange = async (answer) => { //TODO albo tutaj albo w newvote
+    handleAnswerChange = async (answer) => {
         let pollAnswers = this.state.answers;
         let pollAnswersIndex = answer[1];
         let indexOfInputs = answer[2]
@@ -123,9 +123,8 @@ class NewVoteContainer extends Component {
         this.forceUpdate();
       }
 
-    sendNewPoll = async (e) => {//TODO dzisiaj
+    sendNewPoll = async (e) => {
         e.preventDefault(); 
-        //TODO close okno on click!!!!!!!!! i nie mozna dodawac wiecej niz 10 pytan i 10 odpowiedzi!!!
         let stateAnswers = this.state.answers;
         var filtered = stateAnswers.filter(el => (el.filter(value => Object.keys(value).length !== 0)).length !== 0);
         filtered.forEach(function (insideArray, indexOfInsideArray) {

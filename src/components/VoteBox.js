@@ -80,6 +80,7 @@ class VoteBox extends Component {
                             onHide={() => this.setModalShow(false)}
                             data={data}
                             onAnswersCount={this.handleAnswersCount}
+                            // eslint-disable-next-line
                             closingDisabled={closingDisabled}
                         />
                         {/* <Button variant="success" onClick={() => { this.props.toggleCardFunction(true) }}>Open</Button> */}

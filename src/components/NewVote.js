@@ -142,6 +142,7 @@ class NewVote extends Component {
     }
 
     render() {
+        // eslint-disable-next-line
         if (this.state.firstTime) {
             let newInputs = this.state.inputs;
             let id = this.state.globalId
