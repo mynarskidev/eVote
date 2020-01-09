@@ -1,2 +1,2 @@
-# FiszkiFront
-FrontEnd do naszej aplikacji fiszki
+# eVote
+FrontEnd do naszej aplikacji eVote
