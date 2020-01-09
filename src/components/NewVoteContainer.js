@@ -3,17 +3,15 @@ import Button from 'react-bootstrap/Button';
 import { Grid } from '@material-ui/core'
 import NewVote from './NewVote';
 import { arrayOf } from 'prop-types';
-import { mockAnswers } from '../mockData'
 
 let shortid = require('shortid');
 class NewVoteContainer extends Component {
     state = {
         pollName:'',
-        ifLearned:false,
         wrapperHeight : {
             'height' : '100%'
         },
-        answers: mockAnswers, //TODO dlaczego to na to wplywa???
+        answers: [],
         arrayOfObjectsState: [],
         stateVariable: [],
         questions:['',''],
@@ -27,10 +25,9 @@ class NewVoteContainer extends Component {
     }
 
     componentDidMount(){
-        console.log("sdfsdfsdf")
         this.setState({
             isMounted: true,
-            answers: [ [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},],]
+            answers: [[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}],[{},{},{},{},{},{},{},{},{},{}]]
         })
         setTimeout(() => {
             this.setState({
@@ -63,9 +60,6 @@ class NewVoteContainer extends Component {
             })
             setTimeout(() => {this.props.openWindow()}, 200);
         }
-        await this.setState({
-            answers: mockAnswers
-        })
         this.forceUpdate();
     }
 
@@ -129,57 +123,41 @@ class NewVoteContainer extends Component {
         this.forceUpdate();
       }
 
-    sendNewPoll = (e) => {//TODO dzisiaj
+    sendNewPoll = async (e) => {//TODO dzisiaj
+        e.preventDefault(); 
         //TODO close okno on click!!!!!!!!! i nie mozna dodawac wiecej niz 10 pytan i 10 odpowiedzi!!!
         let stateAnswers = this.state.answers;
-        console.log(this.state.answers)
         var filtered = stateAnswers.filter(el => (el.filter(value => Object.keys(value).length !== 0)).length !== 0);
         filtered.forEach(function (insideArray, indexOfInsideArray) {
             insideArray.forEach(function (item, index) {
                 if(Object.keys(item).length === 0 && item.constructor === Object){
-                    insideArray.splice(index, 10);
+                    insideArray.splice(index, 11);
                 }
             })
         });
-        console.log(filtered)
-        e.preventDefault();
         let VoteName = this.state.pollName;
         let VoteQuest = this.state.questions;
-        ///TO  co powyzej to dziala
         let VoteArr = filtered
-
-        // let VoteIfLearned = this.state.ifLearned;//TODO zmien na ifVoted
         if (typeof VoteName !== 'undefined' && VoteName.length > 0) {
             let packedData = {};
             packedData.pollName = VoteName;
-            packedData.username = localStorage.getItem('username');
-            packedData.question = VoteQuest;
-            // packedData.ifLearned = VoteIfLearned;
-            packedData.answers = []
+            packedData.pollCreator = localStorage.getItem('username');
+            packedData.pollQuestions = VoteQuest;
+            packedData.alreadyVoted = false;
+            packedData.pollAnswers = VoteArr;
             // eslint-disable-next-line
-            VoteArr.map((Vote) => {
-                if(typeof Vote != 'undefined' && Vote[0].length > 0){
-                    Vote.splice(2,1);
-                    // Vote[2] = shortid.generate();//TODO tak, ale daj do poll? a nie do opcji?
-                    packedData.answers.push(Vote);
-                }
-            })
-            if( packedData.answers.length > 0 ){
-                console.log("nie wchodze co?")
-                this.props.VotePack(packedData);
+            if( packedData.pollAnswers.length > 0 ){
+                await this.props.VotePack(packedData);
                 this.handleWin();
-            }
-        }
-        this.setState({
-            answers: mockAnswers
-        })
+            }else this.handleWin()
+        }else this.handleWin();
     }
     
     render(){   
         let optionsToRender = [];
-        let obj = this.state.questions;
+        let stateQuest = this.state.questions;
         var other = this
-        Object.keys(obj).forEach(function(key) {
+        Object.keys(stateQuest).forEach(function(key) {
             optionsToRender[key] = <NewVote key={key} id={key} onQuestionChange={(question) => other.handleQuestionChange(question)} onAnswerChange={(ans) => other.handleAnswerChange(ans)} />
         })
 
@@ -193,8 +171,8 @@ class NewVoteContainer extends Component {
                             <span className='font-addNew-input-name-hdr'>Poll Title</span>
                             <input value={this.state.pollName} onChange={this.updateName} required="required" className="addNew-name-input font-addNew-input-name" />
                         </div>
-                        <Button variant="success" onClick={() => this.addQuestionCard()}>Add another question</Button>
-                        <Button variant='danger' style={{"marginLeft": "30px"}} onClick={this.removeOption} disabled={this.state.questions.length===1} >Delete question!</Button> 
+                        <Button variant="success" onClick={() => this.addQuestionCard()} disabled={stateQuest.length === 10 || stateQuest.length>10}>Add another question</Button>
+                        <Button variant='danger' style={{"marginLeft": "30px"}} onClick={this.removeOption} disabled={stateQuest.length===1}>Delete question!</Button> 
                         <Grid container alignItems="center" spacing={16} direction="row" justify="center" style={{ margin: "10px" }}>
                             {optionsToRender}
                         </Grid>

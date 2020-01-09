@@ -26,6 +26,7 @@ function VerticallyCenteredModal(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button disabled={props.closingDisabled} variant="success" onClick={props.onHide}>{`Save & Close`}</Button>
+                {/*todo wyslij odpowiedzi gdzies do bazy console.log */}
             </Modal.Footer>
         </Modal>
     );

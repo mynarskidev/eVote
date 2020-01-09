@@ -58,8 +58,7 @@ class HomeScreen extends Component {
     }
 
     sendVotesSetAction = (data) => {
-        console.log("jestm w homescreeen, data: ", data)
-        // this.props.sendVotesSet(data);
+        this.props.sendVotesSet(data);
     }
 
     openAddWindow = () => {
@@ -84,7 +83,8 @@ class HomeScreen extends Component {
                 // .catch(function (error) {
                     //     //alert("Something wrong") //TODO
                     // });
-        localStorage.removeItem('role');//todo
+        localStorage.removeItem('role');//todo console.log
+        localStorage.removeItem('username');//todo console.log
         history.push('/');//TODO
     }
 
@@ -105,7 +105,7 @@ class HomeScreen extends Component {
                         </div> : <VotesContainer onDataChange={() => this.handleDataChange()} VotesStore={votesData} />
                     }
                     {
-                        addWindow ? <NewVoteContainer VotePack={() => this.sendVotesSetAction()} openWindow={this.openAddWindow} /> : null
+                        addWindow ? <NewVoteContainer VotePack={(data) => this.sendVotesSetAction(data)} openWindow={this.openAddWindow} /> : null
                     }
                 </div>
             </MuiThemeProvider>

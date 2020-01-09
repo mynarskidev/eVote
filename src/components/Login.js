@@ -42,7 +42,8 @@ class Login extends Component {
         } else {
           this.setState({error: ''})
         //   this.handleApiPost(event)//todo
-            username==='admin' ? localStorage.setItem('role', 'admin') : localStorage.setItem('role', 'user');
+            username==='admin' ? localStorage.setItem('role', 'admin') : localStorage.setItem('role', 'user'); //TODO console.log
+            localStorage.setItem('username', username); //TODO console.log
             history.push('/home');
         }
     }
@@ -60,7 +61,8 @@ class Login extends Component {
                             localStorage.setItem('token', response.data.token);
                             localStorage.setItem('auth', response.data.authenticated);
                             localStorage.setItem('username', response.data.username);
-                            // localStorage.setItem('role', response.data.role); //todo
+                            // localStorage.setItem('role', response.data.role); //todo 
+                            //  username==='admin' ? localStorage.setItem('role', 'admin') : localStorage.setItem('role', 'user');
                         }
                         history.push('/home');
                     }

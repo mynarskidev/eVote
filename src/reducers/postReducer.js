@@ -20,9 +20,11 @@ export default function postReducer(state={Votes: [], toggleCard: null}, action)
             return state
         }
         case SEND_VOTE_SET:{
-            let data = action.Votes;
-            data.id = action.id;
-            state = {...state, Votes: [...state.Votes, data] }
+            let id = action.id
+            let oldData = {...state.Votes}
+            let newData = action.Votes
+            let data = {[`${id}`] : newData}
+            state = {...state, Votes: Object.assign( {}, oldData, data )}
             return state
         }
         case EDIT_VOTE_NAME:{
@@ -80,9 +82,7 @@ export default function postReducer(state={Votes: [], toggleCard: null}, action)
             return state
         }
         case REMOVE_VOTE_SET:{
-            console.log("Przed: ", state.Votes)
             delete state.Votes[action.id]
-            console.log("Po: ", state.Votes)
             state = {...state,
                 Votes: state.Votes  
             }

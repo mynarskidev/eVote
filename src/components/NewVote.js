@@ -18,7 +18,6 @@ class NewVote extends Component {
         },
         vote: [],
         answersArray: [],
-        // arrayOfObjectsState: [],
         boxStyle_bckg: {
             'opacity': 0
         },
@@ -168,7 +167,7 @@ class NewVote extends Component {
                 </div>
 
                 <div className='addNew-addNewBTN-container'>
-                    <Button variant="success" onClick={() => this.addInput()}>Add another answer</Button>
+                    <Button variant="success" onClick={() => this.addInput()} disabled={this.state.inputs.length === 10 || this.state.inputs.length>10}>Add another answer</Button>
                 </div>
 
                 <div className='addNew-inputs-col'>

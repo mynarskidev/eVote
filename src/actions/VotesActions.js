@@ -34,19 +34,19 @@ export const cleanScreen = () => {
 };
 
 export const sendVotesSet = (data) => {
-    console.log("!!!!!!!!!!!!!!!!!!!", data)
-    return (dispatch) => {
-      return axios.post(`${apiBaseUrl}/votesSet`, data, {headers: {'Authorization': localStorage.getItem('token')}})
-        .then(response => {
-            if (response.status === 201) {
-                dispatch(sendVotesSetSuccess(response.data))
-            }
-        })
-        .catch(error => {
-            //alert("Something went wrong...") TODO
-          throw(error);
-        });
-    };
+    // return (dispatch) => { //TODO console.log
+    //   return axios.post(`${apiBaseUrl}/votesSet`, data, {headers: {'Authorization': localStorage.getItem('token')}})
+    //     .then(response => {
+    //         if (response.status === 201) {
+    //              dispatch(sendVotesSetSuccess(response.data))
+                    return sendVotesSetSuccess(data)
+    //         }
+    //     })
+    //     .catch(error => {
+    //         //alert("Something went wrong...") TODO
+    //       throw(error);
+    //     });
+    // };
 };
 
 export const sendVotesSetSuccess = (data) => {
