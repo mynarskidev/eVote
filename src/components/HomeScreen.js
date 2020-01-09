@@ -58,7 +58,8 @@ class HomeScreen extends Component {
     }
 
     sendVotesSetAction = (data) => {
-        this.props.sendVotesSet(data);
+        console.log("jestm w homescreeen, data: ", data)
+        // this.props.sendVotesSet(data);
     }
 
     openAddWindow = () => {
@@ -101,10 +102,10 @@ class HomeScreen extends Component {
                         zeroFlag ? <div className='emptyContainer'>
                             <span className='font-no-votes'>You do not have anything to vote :(</span>
                             <img className='noVotes-image' src='img/noVotes.png' alt="NO POLLS AVAILABLE" />
-                        </div> : <VotesContainer onDataChange={() => this.handleDataChange()} VotesStore={votesData} playVote={this.openPlayWindow} />
+                        </div> : <VotesContainer onDataChange={() => this.handleDataChange()} VotesStore={votesData} />
                     }
                     {
-                        addWindow ? <NewVoteContainer VotePack={this.sendVotesSetAction} openWindow={this.openAddWindow} /> : null
+                        addWindow ? <NewVoteContainer VotePack={() => this.sendVotesSetAction()} openWindow={this.openAddWindow} /> : null
                     }
                 </div>
             </MuiThemeProvider>

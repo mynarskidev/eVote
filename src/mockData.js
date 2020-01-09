@@ -161,7 +161,7 @@ export const mockData = {
             ],
             [
               { option: 'sss', votes: 5 },
-              { option: 'xcvxdddvvvwerwer rwer wer wer wer wer wersdfsdf sd fsdfsdf c', votes: 2 },
+              { option: 'xcvxdddvvvwerwer rw', votes: 2 },
               { option: 'cfff3v', votes: 1 }
             ],
             [
@@ -205,3 +205,5 @@ export const mockData = {
           ]
     }
 }
+
+export const mockAnswers =[ [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},], [{},{},{},{},{},{},{},{},{},{},],]

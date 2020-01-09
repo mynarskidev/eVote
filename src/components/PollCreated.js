@@ -7,11 +7,12 @@ import { connect } from 'react-redux'
 
 const pollStyles = {
   questionSeparator: true,
-  questionSeparatorWidth: 'poll',
+  questionSeparatorWidth: 'question',
   questionBold: true,
   questionColor: '#90ee90',
   align: 'center',
-  theme: 'green'
+  theme: 'green',
+  width:"100%"
 }
 
 class PollCreated extends Component {
@@ -36,12 +37,6 @@ class PollCreated extends Component {
     this.props.onAnswersCount(answersCount)
 
     this.setState({ pollAnswers: newChangedAnswers, howManyAnswers: answersCount });
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      howManyAnswers: 0
-    })
   }
 
   render() {

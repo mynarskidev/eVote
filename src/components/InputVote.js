@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 class InputVote extends Component {
     state = {
-        Vote: ['']
-        // Vote: ['', '']
+        Vote: ['','']
     }
 
     componentDidMount(){
         let data = this.state.Vote;
+        data[1] = this.props.questionId;
         data[2] = this.props.id;
         this.setState({
             Vote: data
@@ -17,6 +17,7 @@ class InputVote extends Component {
     typeOfVote = (id, e) => {
         let data = this.state.Vote;
         data[id] = e.target.value;
+        data[1] = this.props.questionId;
         data[2] = this.props.id;
         this.props.data(data);
         this.setState({

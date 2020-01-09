@@ -11,11 +11,14 @@ class NewVote extends Component {
         isMounted: false,
         ifLearned: false,
         inputs: [],
+        questionObject: {},
         globalId: 0,
         wrapperHeight: {
             'height': '100%'
         },
         vote: [],
+        answersArray: [],
+        // arrayOfObjectsState: [],
         boxStyle_bckg: {
             'opacity': 0
         },
@@ -54,14 +57,15 @@ class NewVote extends Component {
     }
 
     newQuestion = (e, nmbr) => {
-        let quest = this.state.questions;
+        let quest = this.state.questionObject;
         let txt = e.target.value;
         txt = txt.toLowerCase();
         txt = txt.charAt(0).toUpperCase() + txt.slice(1);
         quest[nmbr] = txt;
         this.setState({
-            questions: quest
+            questionObject: quest
         })
+        this.props.onQuestionChange(quest)
     }
 
     updateVote = (data) => {
@@ -72,6 +76,7 @@ class NewVote extends Component {
             this.setState({
                 vote: state
             })
+            this.props.onAnswerChange(data)
         }
     }
 
@@ -79,7 +84,7 @@ class NewVote extends Component {
         let id = this.state.globalId
         let newInputs = this.state.inputs;
         newInputs[id] = (<div className='addNew-input-container' key={id}>
-            <InputVote length={this.state.inputs.length} data={(e) => this.updateVote(e)} id={id} remove={(id) => this.removeInput(id)} />
+            <InputVote length={this.state.inputs.length} data={(e) => this.updateVote(e)} id={id} questionId={Number(this.props.id)} remove={(id) => this.removeInput(id)} />
         </div>)
         id++;
         this.setState({
@@ -138,13 +143,12 @@ class NewVote extends Component {
     }
 
     render() {
-        console.log(this.state.inputs)
         if (this.state.firstTime) {
             let newInputs = this.state.inputs;
             let id = this.state.globalId
             for (let i = 0; i < 2; i++) {
                 newInputs[id] = (<div className='addNew-input-container' key={id}>
-                    <InputVote length={this.state.inputs.length} data={(e) => this.updateVote(e)} id={id} remove={(id) => this.removeInput(id)} />
+                    <InputVote length={this.state.inputs.length} data={(e) => this.updateVote(e)} id={id} questionId={Number(this.props.id)} remove={(id) => this.removeInput(id)} />
                 </div>)
                 id++;
             }
@@ -159,7 +163,7 @@ class NewVote extends Component {
                 <div className="addNew-questionsInput-cont">
                     <span className='font-addNew-input-quest-hdr'>Question</span>
                     <div className="addNew-questInput-wrapper">
-                        <input className="addNew-question-input font-addNew-input-quest" required="required" onChange={(e) => this.newQuestion(e, 0)} />
+                        <input className="addNew-question-input font-addNew-input-quest" required="required" onChange={(e) => this.newQuestion(e, this.props.id)} />
                     </div>
                 </div>
 
