@@ -3,13 +3,12 @@ import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import NewVote from './NewVote' //TODO
 import VotesContainer from './VotesContainer'
 import { sendVotesSet, getAllVotesSetsSuccess, cleanScreen } from '../actions/VotesActions'
 import history from '../helpers/History';
 import { mockData } from '../mockData'
 import NewVoteContainer from './NewVoteContainer';
-// import axios from 'axios';
+// import axios from 'axios';//todo console.log
 
 
 class HomeScreen extends Component {
@@ -22,18 +21,19 @@ class HomeScreen extends Component {
 
     async componentDidMount() {
         const other = this;
-        const apiBaseUrl = "http://localhost:8081/api";
-
-        // axios.get(`${apiBaseUrl}/votesSet/user/`+ localStorage.getItem('username')) //TODO
+        //TODO console.log
+        //const apiBaseUrl = "http://localhost:8080";
+        // axios.get(`${apiBaseUrl}/survey/all`, {headers: {'Authorization': localStorage.getItem('token')}}) //TODO console.log czy na pewno token w ten sposob???
         //       .then(function (response) {
             //           if (response.status === 200) {
+                //            await other.props.getAllVotesSetsSuccess(response.data.votesSetList) //TODO console.log czy tak to sie bedzie nazywac???
+                //            await this.setState({votesData: this.props.Votes})
                 await other.props.getAllVotesSetsSuccess(mockData)
                 await this.setState({votesData: this.props.Votes})
-                //             other.props.getAllVotesSetsSuccess(response.data.votesSetList)
                 //           }
                 //       })
                 //       .catch(error => {
-                    //           alert("Something went wrong...")
+                    //           alert("Something went wrong... Please login again.")
                     //         throw(error);
                     //       });
         if ((Object.entries(this.state.votesData).length !== 0 && this.state.votesData.constructor === Object)) {
@@ -66,24 +66,23 @@ class HomeScreen extends Component {
     }
 
     logout = () => {
-        // const other=this;//TODO
-        // localStorage.removeItem('token');
-        // localStorage.removeItem('auth');
-        // localStorage.removeItem('username');
-        // let apiBaseUrl = "http://localhost:8081/api";
-        // axios.delete(apiBaseUrl + '/session')
+        localStorage.removeItem('token');
+        localStorage.removeItem('auth');
+        localStorage.removeItem('email');
+        localStorage.removeItem('role');
+        // const other=this;
+        // let apiBaseUrl = "http://localhost:8080";
+        // axios.delete(apiBaseUrl + '/login') // todo console.log czy na pewno login? 
         // .then(function (response) {
             //         if (response.status === 200) {
                 //                 other.props.cleanScreen()
-                //                 history.push('/home');
+                //                 history.push('/');
+                                    history.push('/');//TODO console.log usun
                 //             }
                 //         })
                 // .catch(function (error) {
-                    //     //alert("Something wrong") //TODO
+                    //     //alert("Something wrong happened. Please contact support.")
                     // });
-        localStorage.removeItem('role');//todo console.log
-        localStorage.removeItem('username');//todo console.log
-        history.push('/');//TODO
     }
 
     render() {

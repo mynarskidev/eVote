@@ -9,35 +9,32 @@ import history from '../helpers/History';
 class Register extends Component {
 
     state = {
-      username:'',
-      password:'',
-      passwordTwo:'',
-      name:'',
-      surname:'',
       email:'',
+      password:'',
+      passwordCheck:'',
+      firstname:'',
+      surname:'',
       error:''
     }
 
     handleValidation(event) {
       this.setState({error: ""})
-      const { username, password, passwordTwo, name, surname, email} = this.state;
-      if (!username || !isNaN(username)) {
-        this.setState({ error: 'Username is not valid' });
+      const { password, passwordCheck, firstname, surname, email} = this.state;
+      if (!email || !isNaN(email)|| !this.validateEmail(email)) {
+        this.setState({ error: 'Email is not valid' });
       } else if (!password || !isNaN(password)) {
         this.setState({ error: 'Password is not valid' });
-      } else if (!passwordTwo || !isNaN(passwordTwo)) {
+      } else if (!passwordCheck || !isNaN(passwordCheck)) {
         this.setState({ error: 'Password is not valid' });
-      } else if (password !== passwordTwo) {
+      } else if (password !== passwordCheck) {
         this.setState({ error: 'The re-entered password is not the same' });
-      } else if (!name || !isNaN(name)) {
+      } else if (!firstname || !isNaN(firstname)) {
         this.setState({ error: 'First name is not valid' });
       } else if (!surname || !isNaN(surname)) {
         this.setState({ error: 'Last Name is not valid' });
-      } else if (!email || !isNaN(email)|| !this.validateEmail(email)) {
-        this.setState({ error: 'Email is not valid' });
       } else {
         this.setState({error: ''})
-        this.handleClick(event)
+        this.handleSubmit(event)
       }
   }
 
@@ -54,28 +51,26 @@ class Register extends Component {
     history.push('/');
   }
 
-  handleClick(event) {
-    let apiBaseUrl = "http://localhost:8081/api";
+  handleSubmit(event) {
+    let apiBaseUrl = "http://localhost:8080";
     let payload = {
-        username: this.state.username,
-        password: this.state.password,
-        name: this.state.name,
-        surname: this.state.surname,
         email: this.state.email,
-        //role: user // admin ma role admin, ale nie mozna z palca go zrobic
+        password: this.state.password,
+        firstname: this.state.firstname,
+        surname: this.state.surname,
     }
-    axios.post(apiBaseUrl + '/users/register', payload)
+    axios.post(apiBaseUrl + '/signon', payload)
       .then(function (response) {
         if (response.status === 201) {
               alert("Registration was successful, You can now log in!")
-              history.push('/');
+              history.push('/');//TODO console.log zrob privateRoute w App!!!
         }
         if (response.status === 409) {
           alert("User already exists!!!")
         }
       })
       .catch(function (error) {
-        alert("User already exists!!!")
+        alert("User already exists!")
       });
   }
 
@@ -93,9 +88,10 @@ class Register extends Component {
           {(this.state.error !== '') ? <span style={{color: "red", fontSize:"40px"}}>{this.state.error}</span> : ''}
            <br />
            <TextField
-             hintText="Enter your Username"
-             floatingLabelText="Username"
-             onChange = {(event,newValue) => this.setState({username:newValue})}
+             hintText="Enter your Email"
+             type="email"
+             floatingLabelText="Email"
+             onChange = {(event,newValue) => this.setState({email:newValue})}
              />
            <br/>
            <TextField
@@ -109,26 +105,19 @@ class Register extends Component {
              type = "password"
              hintText="Enter your Password Again"
              floatingLabelText="Password"
-             onChange = {(event,newValue) => this.setState({passwordTwo:newValue})}
+             onChange = {(event,newValue) => this.setState({passwordCheck:newValue})}
              />
            <br/>
            <TextField
              hintText="Enter your First Name"
              floatingLabelText="First Name"
-             onChange = {(event,newValue) => this.setState({name:newValue})}
+             onChange = {(event,newValue) => this.setState({firstname:newValue})}
              />
            <br/>
            <TextField
              hintText="Enter your Last Name"
              floatingLabelText="Last Name"
              onChange = {(event,newValue) => this.setState({surname:newValue})}
-             />
-           <br/>
-           <TextField
-             hintText="Enter your Email"
-             type="email"
-             floatingLabelText="Email"
-             onChange = {(event,newValue) => this.setState({email:newValue})}
              />
            <br/>
            <Button variant="success" onClick={(event) => this.handleValidation(event)}>Submit</Button>

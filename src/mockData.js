@@ -1,9 +1,9 @@
 export const mockData = {
     one:{
         pollName: 'Do you like msdfe poll',
-        pollCreator: 'admin',
+        pollCreator: 'admin@evote.pl',
         pollQuestions: ['Do you like me?', 'Do you like me2?', 'Do you like me3?'],
-        alreadyVoted: false,
+        alreadyVoted: false, //TODO
         pollAnswers: [
             [
               { option: 'Yes', votes: 10 },
@@ -25,8 +25,8 @@ export const mockData = {
     },
     two:{
         pollName: 'What do yosdddsdu?',
-        pollCreator: 'admin',
-        alreadyVoted: false,
+        pollCreator: 'admin@evote.pl',
+        alreadyVoted: false, //TODO
         pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
@@ -60,8 +60,8 @@ export const mockData = {
     },
     sdf:{
         pollName: 'What do yoqqq22221u?',
-        pollCreator: 'admin',
-        alreadyVoted: false,
+        pollCreator: 'admin@evote.pl',
+        alreadyVoted: false, //TODO
         pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
@@ -95,8 +95,8 @@ export const mockData = {
     },
     ggg:{
         pollName: 'What111 doe434 you?',
-        pollCreator: 'admin',
-        alreadyVoted: false,
+        pollCreator: 'admin@evote.pl',
+        alreadyVoted: false, //TODO
         pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
@@ -129,8 +129,8 @@ export const mockData = {
     },
     dddddd:{
         pollName: 'Wha2431421435354t do you?',
-        pollCreator: 'admin',
-        alreadyVoted: false,
+        pollCreator: 'admin@evote.pl',
+        alreadyVoted: false, //TODO
         pollQuestions: ['Do you?', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?'],
         pollAnswers: [
             [
@@ -163,8 +163,8 @@ export const mockData = {
     },
     sdfsdfsfd:{
         pollName: 'What d1124154124444444o you?',
-        pollCreator: 'admin',
-        alreadyVoted: false,
+        pollCreator: 'admin@evote.pl',
+        alreadyVoted: false, //TODO
         pollQuestions: ['Do you? ', 'Do you2?', 'Do you3?', 'Do you4?', 'Do you5?', 'Do sdfsdfsdf?', 'Do wwww?', 'Do ffssw?'],
         pollAnswers: [
             [

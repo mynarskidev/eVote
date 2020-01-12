@@ -142,7 +142,7 @@ class NewVoteContainer extends Component {
             packedData.pollName = VoteName;
             packedData.pollCreator = localStorage.getItem('username');
             packedData.pollQuestions = VoteQuest;
-            packedData.alreadyVoted = false;
+            // packedData.alreadyVoted = false; TODO
             packedData.pollAnswers = VoteArr;
             // eslint-disable-next-line
             if( packedData.pollAnswers.length > 0 ){

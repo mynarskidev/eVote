@@ -9,7 +9,7 @@ import history from '../helpers/History';
 
 class Login extends Component {
     state = {
-        username:'',
+        email:'',
         password:'',
         error:''
     }
@@ -27,42 +27,45 @@ class Login extends Component {
     handleEnter = (e) =>{
         let other=this;
         var code = (e.keyCode ? e.keyCode : e.which);
-        if(code === 13) { //Enter keycode
+        if(code === 13) {
             other.handleClick(e)
         }
     }
 
     handleClick(event){
         this.setState({error: ""})
-        const { username, password} = this.state;
-        if (!username || !isNaN(username)) {
-          this.setState({ error: 'Username is not valid' });
+        const { email, password} = this.state;
+        if (!email || !isNaN(email)) {
+          this.setState({ error: 'Email is not valid' });
         } else if (!password || !isNaN(password)) {
           this.setState({ error: 'Password is not valid' });
         } else {
           this.setState({error: ''})
-        //   this.handleApiPost(event)//todo
-            username==='admin' ? localStorage.setItem('role', 'admin') : localStorage.setItem('role', 'user'); //TODO console.log
-            localStorage.setItem('username', username); //TODO console.log
-            history.push('/home');
+            //this.handleApiPost(event)//TODO cosole.log i usun to co poniżej jak skonczysz handleapipost
+            email==='admin@evote.pl' ? localStorage.setItem('role', 'admin') : localStorage.setItem('role', 'user'); //todo console.log
+            localStorage.setItem('email', email); //todo console.log
+            localStorage.setItem('auth', true); //todo console.log
+            history.push('/home'); //todo console.log
+            //usun dotad todo console.log 
         }
     }
 
     handleApiPost(event) {
-        let apiBaseUrl = "http://localhost:8081/api";
+        let apiBaseUrl = "http://localhost:8080";
+        const { email, password} = this.state;
         let payload = {
-            username: this.state.username,
-            password: this.state.password
+            email: email,
+            password: password
         }
-        axios.post(apiBaseUrl + '/session', payload)
+        axios.post(apiBaseUrl + '/login', payload)
             .then(function (response) {
                 if (response.status === 200) {
                         if (response.data.token) {
                             localStorage.setItem('token', response.data.token);
-                            localStorage.setItem('auth', response.data.authenticated);
-                            localStorage.setItem('username', response.data.username);
-                            // localStorage.setItem('role', response.data.role); //todo 
-                            //  username==='admin' ? localStorage.setItem('role', 'admin') : localStorage.setItem('role', 'user');
+                            //localStorage.setItem('auth', response.data.authenticated); //Todo console.log czy jest to w odpowiedzi?/jesli nie to jesli jest token to setuj auth jako true
+                            response.data.token ? localStorage.setItem('auth', true) : localStorage.setItem('auth', false); //todo console.log to albo to powyzej
+                            localStorage.setItem('email', (response.data.email || email)); //Todo console.log czy jest to w odpowiedzi?
+                            email==='admin@evote.pl' ? localStorage.setItem('role', 'admin') : localStorage.setItem('role', 'user');
                         }
                         history.push('/home');
                     }
@@ -95,9 +98,9 @@ class Login extends Component {
                         {(this.state.error !== '') ? <span style={{color: "red", fontSize:"40px"}}>{this.state.error}</span> : ''}
                         <br />
                         <TextField
-                            hintText="Enter your Username"
-                            floatingLabelText="Username"
-                            onChange={(event, newValue) => this.setState({ username: newValue })}
+                            hintText="Enter your Email"
+                            floatingLabelText="Email"
+                            onChange={(event, newValue) => this.setState({ email: newValue })}
                         />
                         <br />
                         <TextField

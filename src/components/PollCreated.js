@@ -1,9 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Poll from 'react-polls'
-import Button from 'react-bootstrap/Button'
 import { Grid } from '@material-ui/core'
-import { toggleCardFunction } from '../actions/VotesActions'
-import { connect } from 'react-redux'
 
 const pollStyles = {
   questionSeparator: true,
@@ -19,6 +16,7 @@ class PollCreated extends Component {
   state = {
     pollAnswers: this.props.data.pollAnswers,
     pollQuestions: this.props.data.pollQuestions,
+    pollName: this.props.data.pollName,
     howManyAnswers: 0
   }
 
@@ -36,34 +34,17 @@ class PollCreated extends Component {
 
     this.props.onAnswersCount(answersCount)
 
+    let answersObject = {}
+    answersObject.pollName= this.state.pollName;
+    answersObject.pollQuestions= this.state.pollQuestions;
+    answersObject.pollAnswers= newChangedAnswers;
+    this.props.onSaveClose(answersObject)
+
     this.setState({ pollAnswers: newChangedAnswers, howManyAnswers: answersCount });
   }
 
   render() {
     const { pollAnswers, pollQuestions } = this.state
-
-    // console.log(this.props.toggleCard)
-
-    // return (
-    //   <Fragment>
-    //     {/* <Button variant="success" onClick={() => { this.props.toggleCardFunction(false) }}>Return</Button> */}
-    //     <div className='pollcreated'>
-    //       {/* <header className='header'>
-    //         <h1 className='name'>{this.props.data.pollName}</h1>
-    //       </header> */}
-    //       <main className='main'>
-    //         {
-    //           pollAnswers.map((answer, index) => {
-    //             return <div key={index}>
-    //               <Poll question={pollQuestions[index]} answers={answer} onVote={voteAnswer => this.handleVote(voteAnswer, answer, index)} customStyles={pollStyles} noStorage />
-    //             </div>
-    //           })
-    //         }
-    //       </main>
-    //     </div>
-    //   </Fragment>
-    // )
-
     return (
       <Grid container alignItems="center" spacing={16} direction="row" justify="center" style={{ margin: "10px" }}>
         {pollAnswers.map((answer, index) => {
@@ -80,13 +61,4 @@ class PollCreated extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { toggleCard } = state
-  return {
-    toggleCard: toggleCard
-  }
-}
-
-const mapDispatchToProps = { toggleCardFunction }
-
-export default connect(mapStateToProps, mapDispatchToProps)(PollCreated);
+export default PollCreated;
