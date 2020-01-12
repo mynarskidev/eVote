@@ -10,8 +10,6 @@ import history from '../helpers/History';
 import { mockData } from '../mockData'
 import NewVoteContainer from './NewVoteContainer';
 // import axios from 'axios';
-// import EditVote from './EditVote'
-// import RemoveVoteWrapper from './RemoveVoteWrapper'
 
 
 class HomeScreen extends Component {
